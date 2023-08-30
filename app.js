@@ -2,11 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-const { PORT = 4000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } =
-  process.env;
+const { PORT, DB_URL } = process.env;
 const cookieParser = require('cookie-parser');
+const { errors } = require('celebrate');
 const helmet = require('helmet');
 const cors = require('cors');
+const rateLimiter = require('./utils/rateLimiter');
+const { errorHandler } = require('./middlewares/errorHandler');
+const router = require('./routes/index');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 mongoose
   .connect(DB_URL, {
@@ -23,15 +27,23 @@ mongoose
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+app.use(rateLimiter);
 
 app.use(
   cors({
-    origin: ['https://maxmesto.nomoreparties.co', 'http://localhost:3000'],
+    origin: ['https://maxmesto.nomoreparties.co', 'http://localhost:4000'],
     credentials: true,
   })
 );
 
 app.use(helmet());
+app.use(requestLogger);
+
+app.use(router);
+
+app.use(errorLogger);
+app.use(errors());
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log('Сервер успешно запущен');
