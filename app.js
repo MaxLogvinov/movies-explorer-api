@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-const { PORT, DB_URL } = process.env;
+const { PORT = 3000, DB_URL, NODE_ENV } = process.env;
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
@@ -11,9 +11,10 @@ const rateLimiter = require('./utils/rateLimiter');
 const { errorHandler } = require('./middlewares/errorHandler');
 const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { DEV_DB_URL } = require('./utils/constants');
 
 mongoose
-  .connect(DB_URL, {
+  .connect(NODE_ENV === 'production' ? DB_URL : DEV_DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: false,
   })
@@ -27,6 +28,7 @@ mongoose
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+app.use(requestLogger);
 app.use(rateLimiter);
 
 app.use(
@@ -37,7 +39,6 @@ app.use(
 );
 
 app.use(helmet());
-app.use(requestLogger);
 
 app.use(router);
 
