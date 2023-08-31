@@ -9,7 +9,7 @@ const errorHandler = (err, req, res, next) => {
   res.status(statusCode).send({
     message:
       statusCode === httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR
-        ? 'На сервере произошла ошибка'
+        ? `На сервере произошла ошибка, ${message}`
         : message,
   });
 

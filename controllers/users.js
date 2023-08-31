@@ -20,10 +20,10 @@ const getUserInfo = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof CastError) {
-        next(new BadRequestError('Некорретные данные'));
-      } else {
-        next(err);
+        return next(new BadRequestError('Некорретные данные'));
       }
+
+      return next(err);
     });
 };
 
@@ -44,6 +44,13 @@ const updateUser = (req, res, next) => {
         .send({ name: user.name, email: user.email });
     })
     .catch((err) => {
+      if (err.code == 11000) {
+        return next(
+          new ConflictingRequest(
+            'Пользователь с данной почтой уже зарегестрирован'
+          )
+        );
+      }
       if (err instanceof ValidationError) {
         next(new BadRequestError('Некорретные данные'));
       } else {
