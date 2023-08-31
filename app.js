@@ -31,7 +31,7 @@ app.use(rateLimiter);
 
 app.use(
   cors({
-    origin: ['https://maxmesto.nomoreparties.co', 'http://localhost:4000'],
+    origin: ['http://localhost:4000'],
     credentials: true,
   })
 );
@@ -46,5 +46,5 @@ app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log('Сервер успешно запущен');
+  console.log(`Сервер успешно запущен на ${PORT}`);
 });
