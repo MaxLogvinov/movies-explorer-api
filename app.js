@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-const { PORT = 3000, DB_URL, NODE_ENV } = process.env;
+const { PORT = 4000, DB_URL, NODE_ENV } = process.env;
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
@@ -33,7 +33,7 @@ app.use(rateLimiter);
 
 app.use(
   cors({
-    origin: ['http://localhost:4000'],
+    origin: ['http://localhost:3000'],
     credentials: true,
   })
 );
