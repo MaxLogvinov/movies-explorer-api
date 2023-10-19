@@ -33,9 +33,8 @@ app.use(requestLogger);
 app.use(
   cors({
     origin: [
-      'http://localhost:3000',
-      'http://localhost:3000/',
       'https://diploma.maxlogvinov.nomoredomainsicu.ru',
+      'http://localhost:3000',
     ],
     credentials: true,
   })
