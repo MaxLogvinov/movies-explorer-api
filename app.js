@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-const { PORT = 4000, DB_URL, NODE_ENV } = process.env;
+const { PORT = 4001, DB_URL, NODE_ENV } = process.env;
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
@@ -28,6 +28,7 @@ mongoose
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+
 app.use(requestLogger);
 
 app.use(
