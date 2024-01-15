@@ -1,21 +1,24 @@
-# movies-explorer-api
+### Обзор проекта
 
-Репозиторий для API дипломной работы: авторизация и регистрация пользователей, операции с фильмами.
+Данный проект представляет собой личную бэкенд часть проекта Movies Explorer.
 
-Адрес репозитория: https://github.com/MaxLogvinov/movies-explorer-api
+**Технологический стек**
 
-# Ссылки на проект
+Node.js, express.js, MongoDB, mongoose, REST API, Joi, celebrate, Helmet, Express Rate Limit, CORS
 
-IP 51.250.90.73
+**Использованные методы**
 
-Адрес для запросов к API: http://api.diploma.maxlogvinov.nomoredomainsicu.ru/
+В данном проекте был реализовано следующее:
 
-# Роутинг API
+- Создание серверного приложения с помощью express.js
+- Роутинг для регистрации, аутентификации и авторизации пользователя.
+- Роутинг для создания, удаления и получения фильмов пользователя.
+- Роуты защищены аутентификацией с помощью токена, получаемого из cookie.
+- Реализована работа с базой данных NoSQL MongoDB.
+- Реализована централизованная обработка ошибок.
+- Реализована валидация приходящих на сервер данных с помощью celebrate.
+- Использован Helmet для заголовков безопасности, защита от DDoS атак с помощью Express Rate Limit,
+  конфигурация CORS c помощью модуля cors.
 
-- POST /signup - создаёт пользователя с переданными в теле email, password и name
-- POST /signin - проверяет переданные в теле почту и пароль
-- GET /users/me - возвращает информацию о пользователе (email и имя)
-- PATCH /users/me - обновляет информацию о пользователе (email и имя)
-- GET /movies - возвращает все сохранённые текущим пользователем фильмы
-- POST /movies - создаёт фильм с переданными в теле country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
-- DELETE /movies/\_id - удаляет сохранённый фильм по id
+Адрес для запросов к API:
+(http://api.diploma.maxlogvinov.nomoredomainsicu.ru)
