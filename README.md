@@ -28,3 +28,5 @@
 - Конфигурация CORS c помощью модуля cors;
 
 **[Адрес для запросов к API](http://api.diploma.maxlogvinov.nomoredomainsicu.ru)**
+
+Проект завершен.
